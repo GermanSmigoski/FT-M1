@@ -10,32 +10,32 @@ Determiná que será impreso en la consola, sin ejecutar el código.
 > Investiga cuál es la diferencia entre declarar una variable con `var` y directamente asignarle un valor.
 
 ```javascript
-x = 1;
-var a = 5;
-var b = 10;
-var c = function(a, b, c) {
-  var x = 10;
-  console.log(x);
-  console.log(a);
+x = 1; //  valor es 1.
+var a = 5; // valor 5.
+var b = 10; // valor 10.
+var c = function(a, b, c) { 
+  var x = 10; // valor 10
+  console.log(x); // devuelve 10 porque toma como referencia la variable defendinida de arriba.
+  console.log(a); // devuelve 8 que es tomada del global ya que no esta definida.
   var f = function(a, b, c) {
     b = a;
-    console.log(b);
+    console.log(b); // devuelve 8 ya que el valor de b es a y en el global la a es cambiada porr la c del final.
     b = c;
     var x = 5;
   }
   f(a,b,c);
-  console.log(b);
+  console.log(b); // devuelve 9 que esta lo cambia el valor la variable c.
 }
 c(8,9,10);
-console.log(b);
-console.log(x);
-```
+console.log(b); // deuvelve 10 toma el valor global.
+console.log(x); // devuelve 1 toma el valor global.
+``` 
 
 ```javascript
-console.log(bar);
-console.log(baz);
+console.log(bar); // devuelve devuelve undefined porque el valor esta definido dentro de la funcion.
+console.log(baz); // devuelve no esta definido
 foo();
-function foo() { console.log('Hola!'); }
+function foo() { console.log('Hola!'); } 
 var bar = 1;
 baz = 2;
 ```
@@ -45,19 +45,19 @@ var instructor = "Tony";
 if(true) {
     var instructor = "Franco";
 }
-console.log(instructor);
+console.log(instructor); // devuelve Franco
 ```
 
 ```javascript
 var instructor = "Tony";
-console.log(instructor);
+console.log(instructor); // devuelve Tony
 (function() {
    if(true) {
       var instructor = "Franco";
-      console.log(instructor);
+      console.log(instructor); //devuelve Franco
    }
 })();
-console.log(instructor);
+console.log(instructor); //devuelve Tony porque Franco esta en otro contexto de ejecucion
 ```
 
 ```javascript
@@ -66,33 +66,33 @@ let pm = "Franco";
 if (true) {
     var instructor = "The Flash";
     let pm = "Reverse Flash";
-    console.log(instructor);
-    console.log(pm);
+    console.log(instructor); // The Flash
+    console.log(pm); // Reverse Flash (Let solo scope en el bloque)
 }
-console.log(instructor);
-console.log(pm);
+console.log(instructor); // The Flash (Var es global)
+console.log(pm); // Franco 
 ```
 ### Coerción de Datos
 
 ¿Cuál crees que será el resultado de la ejecución de estas operaciones?:
 
 ```javascript
-6 / "3"
-"2" * "3"
-4 + 5 + "px"
-"$" + 4 + 5
-"4" - 2
-"4px" - 2
-7 / 0
-{}[0]
-parseInt("09")
-5 && 2
-2 && 5
-5 || 0
-0 || 5
-[3]+[3]-[10]
-3>2>1
-[] == ![]
+6 / "3" // 2
+"2" * "3" // 6
+4 + 5 + "px" // 9px
+"$" + 4 + 5 // $45
+"4" - 2 // 2
+"4px" - 2 // NaN
+7 / 0 // infinity
+{}[0] // [0]
+parseInt("09") // 9 
+5 && 2 // 2
+2 && 5 // 5
+5 || 0 // 5 
+0 || 5 // 5
+[3]+[3]-[10] // 23 - primero se concatena '3' '3' y despues se resta 10
+3>2>1 // false
+[] == ![] // true
 ```
 
 > Si te quedó alguna duda repasá con [este artículo](http://javascript.info/tutorial/object-conversion).
@@ -104,8 +104,8 @@ parseInt("09")
 
 ```javascript
 function test() {
-   console.log(a);
-   console.log(foo());
+   console.log(a);  // undefined
+   console.log(foo()); // 2
 
    var a = 1;
    function foo() {
@@ -129,7 +129,7 @@ function getFood(food) {
     return snack;
 }
 
-getFood(false);
+getFood(false); // devuelve false porque es false
 ```
 
 
@@ -149,11 +149,11 @@ var obj = {
    }
 };
 
-console.log(obj.prop.getFullname());
+console.log(obj.prop.getFullname()); // Aurelio De Rosa
 
 var test = obj.prop.getFullname;
 
-console.log(test());
+console.log(test()); // Undefinded
 ```
 
 ### Event loop
@@ -168,5 +168,8 @@ function printing() {
    console.log(4);
 }
 
-printing();
-```
+printing(); // 1- 1
+            // 2- 4
+            // 3- 3
+            // 4- 2
+```         
